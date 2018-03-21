@@ -33,7 +33,10 @@ public class SrpingSecurityConfig extends WebSecurityConfigurerAdapter{
 //        auth.inMemoryAuthentication()
 //                .passwordEncoder(new MyPasswordEncoder())//在此处应用自定义PasswordEncoder
 //                .withUser("demo").password("demo").roles("user");
-        auth.userDetailsService(myUserService);
+        //指定验证器
+        auth.userDetailsService(myUserService).passwordEncoder(new MyPasswordEncoder());
+        //默认数据库验证
+        auth.jdbcAuthentication().usersByUsernameQuery("").authoritiesByUsernameQuery("").passwordEncoder(new MyPasswordEncoder());
     }
     public class MyPasswordEncoder implements PasswordEncoder {
 
